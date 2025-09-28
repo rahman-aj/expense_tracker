@@ -1,3 +1,4 @@
+import 'package:expense_tracker/models/budget.dart';
 import 'package:expense_tracker/models/category.dart';
 import 'package:expense_tracker/models/expense.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,6 +12,7 @@ final storageServiceProvider = Provider<StorageService>((ref) {
 final storageInitializerProvider = FutureProvider<void>((ref) async {
   await Hive.initFlutter();
 
+  Hive.registerAdapter(MonthlyBudgetAdapter());
   Hive.registerAdapter(ExpenseCategoryAdapter());
   Hive.registerAdapter(ExpenseAdapter());
 

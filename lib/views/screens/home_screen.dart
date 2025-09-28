@@ -1,3 +1,4 @@
+import 'package:expense_tracker/common/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../providers/expense_provider.dart';
@@ -20,6 +21,24 @@ class HomeScreen extends ConsumerWidget {
             tooltip: 'Filter expenses',
             icon: const Icon(Icons.filter_list),
             onPressed: () => _showFilterDialog(context, ref),
+          ),
+          IconButton(
+            tooltip: 'Monthly budget',
+            icon: const Icon(Icons.account_balance_wallet),
+            onPressed: () => Navigator.pushNamed(context, AppConstants.budget),
+          ),
+          IconButton(
+            tooltip: 'Charts & insights',
+            icon: const Icon(Icons.pie_chart),
+            onPressed: () {
+              final allExpenses =
+                  ref.read(expenseProvider.notifier).allExpenses;
+              Navigator.pushNamed(
+                context,
+                AppConstants.charts,
+                arguments: allExpenses,
+              );
+            },
           ),
         ],
       ),
@@ -55,7 +74,7 @@ class HomeScreen extends ConsumerWidget {
       ),
       floatingActionButton: FloatingActionButton(
         tooltip: 'Add Expense',
-        onPressed: () { /*TODO: navigate to add expense screen*/ },
+        onPressed: () => Navigator.pushNamed(context, AppConstants.addExpense),
         child: const Icon(Icons.add),
       ),
     );

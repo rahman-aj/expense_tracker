@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'expense_item.dart';
 import '../../models/expense.dart';
+import '../screens/add_expense_screen.dart';
 import '../../providers/expense_provider.dart';
 
 class ExpenseList extends ConsumerWidget {
@@ -73,7 +74,15 @@ class ExpenseList extends ConsumerWidget {
                       expense: expense,
                       showDate: true,
                       onEdit: () {
-                        
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => AddExpenseScreen(
+                              key: const ValueKey('edit_\${expense.id}'),
+                              expense: expense,
+                            ),
+                          ),
+                        );
                       },
                       onDelete: () async {
                         final confirm = await showDialog<bool>(
@@ -123,7 +132,15 @@ class ExpenseList extends ConsumerWidget {
                               expense: expense,
                               showDate: false,
                               onEdit: () {
-                                // TODO: navigate to edit screen
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => AddExpenseScreen(
+                                      key: const ValueKey('edit_\${expense.id}'),
+                                      expense: expense,
+                                    ),
+                                  ),
+                                );
                               },
                               onDelete: () async {
                                 final confirm = await showDialog<bool>(
